@@ -82,6 +82,10 @@ with `$targetDirectory` being the directory into which you want to install the f
 
 Note that the current plugin version is tuned to be run on the hg19 human assembly, but a liftover of all files should probably enable a run on GRch38.
 
+Note on the versioning of the dbSNP file:
+The dbSNP database only maintains the newest version and has no archives of older versions. Therefore this download script will always download the newest version and subsequently filter entries according to `$DBSNP_VERSION`. However, as newer dbSNP versions might drop certain entries, the database might still change in the future. This has to be kept in mind with respect to the reproducibility of the whole workflow.
+
+
 .. _prepackaged-installation:
 
 Prepackaged files (ACEseq 1.2.10 only)
