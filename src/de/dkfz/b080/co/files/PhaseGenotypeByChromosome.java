@@ -19,13 +19,13 @@ import java.util.Map;
  */
 
 
-public class ImputeGenotypeByChromosome extends IndexedFileObjects {
+public class PhaseGenotypeByChromosome extends IndexedFileObjects {
 
     private PhasedGenotypeFileGroupByChromosome phasedSnpFiles;
 
     private HaploblockFileGroupByChromosome haploblockFiles;
 
-    public ImputeGenotypeByChromosome(IndexedFileObjects indexedFileObjects, ExecutionContext executionContext) {
+    public PhaseGenotypeByChromosome(IndexedFileObjects indexedFileObjects, ExecutionContext executionContext) {
         super(indexedFileObjects.getIndices(), indexedFileObjects.getIndexedFileObjects(), executionContext);
         Map<String, PhasedGenotypeFile> _phasedSnpFiles = new LinkedHashMap<>();
         Map<String, HaploblockGroupFile> _haploblockFiles = new LinkedHashMap<>();

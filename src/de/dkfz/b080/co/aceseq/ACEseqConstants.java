@@ -23,10 +23,10 @@ public final class ACEseqConstants {
     public static final String TOOL_ANNOTATE_COV_WIN = "annotateCnvFiles";
     public static final String TOOL_GET_GENOTYPES = "getGenotypes";
     public static final String TOOL_CREATE_UNPHASED_GENOTYPE = "createUnphasedGenotype";
-    public static final String TOOL_IMPUTE_GENOTYPES = "imputeGenotypes";
-    public static final String TOOL_IMPUTE_GENOTYPES_NOMPILEUP = "imputeGenotypes_noMpileup";
-    public static final String TOOL_IMPUTE_GENOTYPEX = "imputeGenotypes_X";
-    public static final String TOOL_IMPUTE_GENOTYPEX_NOMPILEUP = "imputeGenotypes_X_noMpileup";
+    public static final String TOOL_PHASE_GENOTYPES = "phaseGenotypes";
+    public static final String TOOL_PHASE_GENOTYPES_NOMPILEUP = "phaseGenotypes_noMpileup";
+    public static final String TOOL_PHASE_GENOTYPEX = "phaseGenotypes_X";
+    public static final String TOOL_PHASE_GENOTYPEX_NOMPILEUP = "phaseGenotypes_X_noMpileup";
     public static final String TOOL_ADD_HAPLOTYPES_TO_SNP_FILE = "addHaplotypesToSnpFile";
     public static final String TOOL_CREATE_CONTROL_BAF_PLOTS = "createControlBafPlots";
     public static final String TOOL_CORRECT_GC_BIAS = "correctGcBias";
@@ -48,9 +48,6 @@ public final class ACEseqConstants {
     public static final String PARM_CHR_INDEX = "PARM_CHR_INDEX";
     public static final String CHR_NAME = "CHR_NAME";
     public static final String CHR_NR = "CHR_NR";
-    public static final String GENETIC_MAP_FILE = "GENETIC_MAP_FILE";
-    public static final String KNOWN_HAPLOTYPES_FILE = "KNOWN_HAPLOTYPES_FILE";
-    public static final String KNOWN_HAPLOTYPES_LEGEND_FILE = "KNOWN_HAPLOTYPES_LEGEND_FILE";
 
     private ACEseqConstants() {
     }

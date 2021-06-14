@@ -208,7 +208,7 @@ plotAll <- function(dat, comb, ploi, TCC, roundPloi, chrCount, secondChoicePloid
   if (index == 1) {
     # Plot combined 'coverage' and 'rawBAF' (only once, not the same plot for all pp solutions)
     chrLengthTab = chrLength
-    colnames(chrLengthTab)  <- c("chromosome", "length", "info")
+    colnames(chrLengthTab)[1:2]  <- c("chromosome", "length")
     chrLengthTab$chromosome <- as.numeric(chrLengthTab$chromosome)
     chrLengthTab <- chrLengthTab[order(chrLengthTab$chromosome),]
     plotDir = paste0(outDir,"/plots")

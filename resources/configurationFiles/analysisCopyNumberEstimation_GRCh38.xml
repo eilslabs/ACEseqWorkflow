@@ -1,0 +1,53 @@
+<!--
+  ~ Copyright (c) 2017 The ACEseq workflow developers.
+  ~
+  ~ Distributed under the MIT License (license terms are at https://www.github.com/eilslabs/ACEseqWorkflow/LICENSE.txt).
+  -->
+
+<configuration name='copyNumberEstimationAnalysisGRCh38' description='CNV Calling for NGS data on the GRCh38 reference genome'
+               configurationType='analysis' class='de.dkfz.roddy.core.Analysis' workflowClass='ACESeqWorkflow'
+               runtimeServiceClass='de.dkfz.b080.co.common.BasicCOProjectsRuntimeService'
+               imports="commonCOWorkflowsSettings,copyNumberEstimationAnalysis"
+               listOfUsedTools="mergeAndFilterSnpFiles,cnvSnpGeneration,annotateCnvFiles,phaseGenotypes,phaseGenotypes_X,addHaplotypesToSnpFile,getBreakpoints,mergeBreakpointsAndSv,getSegmentsAndSnps,markHomozygousDeletions"
+               usedToolFolders="copyNumberEstimationWorkflow,tools">
+  
+  <configurationvalues>
+
+    <!--Reference genome base directory-->
+    <cvalue name="baseDirectoryReference" value="/icgc/ngs_share/assemblies/hg_GRCh38" type="path"/>
+    <cvalue name="referenceGenome_GRCh38" value="${baseDirectoryReference}/sequence/GRCh38_decoy_ebv_phiX_alt_hla_chr.fa" type="path"/>
+    <cvalue name='REFERENCE_GENOME' value="${referenceGenome_GRCh38}" type="string"/>
+    <cvalue name="CHROM_SIZES_FILE" value="${baseDirectoryReference}/stats/GRCh38_decoy_ebv_phiX_alt_hla_chr.fa.chrLenOnlyACGT_realChromosomes.tsv" type="path" />
+    
+    <cvalue name="disableAutoBAMHeaderAnalysis" value="true" type="boolean"/>
+    <cvalue name='CHR_PREFIX' value='chr' type='string' />
+    <cvalue name='CHR_SUFFIX' value='' type='string' />
+    
+    <!--Databases and annotation files-->
+    <cvalue name="dbSNP_FILE" value="${baseDirectoryReference}/databases/dbSNP/00-All.SNV.vcf.gz" type="path"/>
+    <cvalue name="MAPPABILITY_FILE" value="${baseDirectoryReference}/stats/mappability/GRCh38_Mappability_Align_100mer.bedGraph.gz" type="path"/>
+    <cvalue name="CHROMOSOME_LENGTH_FILE" value="${baseDirectoryReference}/stats/GRCh38_decoy_ebv_phiX_alt_hla_chr.fa.chrLength.tsv" type="path"/>
+    <cvalue name="REPLICATION_TIME_FILE" value="${baseDirectoryReference}/databases/ENCODE/RepliSeq/time_mean_10KB.Rda" type="path"/>
+    <cvalue name="GC_CONTENT_FILE" value="${baseDirectoryReference}/stats/gc_content_hg38.txt" type="path"/>    
+
+    <!-- Beagle references-->
+    <cvalue name='BEAGLE_REFERENCE_FILE' value="${baseDirectoryReference}/tools_data/Beagle/1000genomes/ALL.chr${CHR_NAME}.shapeit2_integrated_snvindels_v2a_27022019.GRCh38.phased.CHR.bref3" type="path"/>
+    <cvalue name='BEAGLE_REFERENCE_FILE_X' value="${baseDirectoryReference}/tools_data/Beagle/1000genomes/ALL.chrX.shapeit2_integrated_snvindels_v2a_27022019.GRCh38.phased.CHR.bref3" type="path"/>
+    <cvalue name='BEAGLE_GENETIC_MAP' value="${baseDirectoryReference}/databases/genetic_maps/plink.chr${CHR_NAME}.GRCh38.CHR.map" type="path"/>
+    <cvalue name='BEAGLE_GENETIC_MAP_X' value="${baseDirectoryReference}/databases/genetic_maps/plink.chrX.GRCh38.CHR.map" type="path"/>
+
+    <!--FAKE controls: Needs to be liftover from hg19-->
+    <cvalue name='MALE_FAKE_CONTROL_PRE' value="${baseDirectoryReference}/databases/LocalControls/ACEseq_GenericMaleControl_liftover/GenericMaleControl.chr" type='path'
+            description="path and prefix to chromosome-wise 1kb coverage file used for fake control workflow for male patients" />
+    <cvalue name='FEMALE_FAKE_CONTROL_PRE' value="${baseDirectoryReference}/databases/LocalControls/ACEseq_GenericFemaleControl_liftover/GenericFemaleControl.chr" type='path'
+            description="path and prefix to chromosome-wise 1kb coverage file used for fake control workflow for female patients" />
+    
+    <!--getBreakpointsAndMergeCrest/datatablePSCBSgaps Opts-->
+    <cvalue name="FILENAME_CENTROMERES" value='${baseDirectoryReference}/stats/gap_with_centromeres.header.txt' type="string"/>
+
+    <!--generateVCF opts-->
+    <cvalue name="blacklistFileName" value='artifact.homoDels.potentialArtifacts.hg38_liftover.txt' type="string"/>
+    <cvalue name="cytobandsFile" value='${baseDirectoryReference}/stats/hg38_cytoBand.txt' type="string"/>
+
+  </configurationvalues>
+</configuration>

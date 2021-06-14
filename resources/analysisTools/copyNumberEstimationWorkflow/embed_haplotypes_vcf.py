@@ -1,9 +1,12 @@
- #!/usr/bin/python
+#!/usr/bin/python
 
 # Copyright (c) 2017 The ACEseq workflow developers.
 # Distributed under the MIT License (license terms are at https://www.github.com/eilslabs/ACEseqWorkflow/LICENSE.txt).
 
 from python_modules import Options
+
+def is_comment_line(line):
+    return line.startswith("#")
 
 options = Options.parse( { "hap_file" : str, "vcf_file" : str,
                            "outfile"  : str  } )
@@ -20,7 +23,7 @@ if options:
 	
 	for vcf_line in vcf_infile:
 		
-		if vcf_line[0] != "#":
+		if not is_comment_line(vcf_line):
 			
 			vcf_line = vcf_line.rstrip().split("\t")
 			vcf_line[0] = vcf_line[0].replace('chr', '')

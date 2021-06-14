@@ -11,7 +11,7 @@ Multiple parameters can be set with ACEseq though not all are necessary to chang
  svOutputDirectory,${outputAnalysisBaseDirectory}/SV_calls,path,
  crestOutputDirectory,${outputAnalysisBaseDirectory}/crest,path,
  cnvSnpOutputDirectory,${aceseqOutputDirectory}/cnv_snp,path,
- imputeOutputDirectory,${aceseqOutputDirectory}/phasing,path,
+ phasingOutputDirectory,${aceseqOutputDirectory}/phasing,path,
  plotOutputDirectory,${aceseqOutputDirectory}/plots,path,
  runWithoutControl,false,boolean,use control for analysis (false|true)
  minHT,5,integer,minimum number of consecutive SNPs to be considered for haploblocks
@@ -41,7 +41,7 @@ Multiple parameters can be set with ACEseq though not all are necessary to chang
  min_distance,0.05,float,min_distance
  haplogroupFilePrefix,haploblocks_chr,string,prefix for file with haplogroups per chromosome
  haplogroupFileSuffix,txt,string,suffix for file with haplogroups per chromosome
- haplogroupFilePath,${imputeOutputDirectory}/${haplogroupFilePrefix},path,
+ haplogroupFilePath,${phasingOutputDirectory}/${haplogroupFilePrefix},path,
  min_length_purity,1000000,integer,minimum length of segments to be considered for tumor cell content and ploidy estimation
  min_hetSNPs_purity,500,integer,minimum number of control heterozygous SNPs in segments to be considered for tumor cell content and ploidy estimation
  dh_stop,max,string,
@@ -72,18 +72,9 @@ Multiple parameters can be set with ACEseq though not all are necessary to chang
  PATIENTSEX,male,string,patient sex used in case of no control workflow (male|female|klinefelter)
  CNV_ANNO_SUFFIX,cnv.anno.tab.gz,string,suffix for mappability annotated chromosome-wise 1kb coverage files
  CNV_SUFFIX,cnv.tab.gz,string,suffix chromosome-wise 1kb coverage files
- FILE_UNPHASED_PRE,${imputeOutputDirectory}/${unphasedGenotypesFilePrefix},path,
- FILE_UNPHASED_GENOTYPE,${imputeOutputDirectory}/unphased_genotype_chr,path,
- FILE_PHASED_PRE,${imputeOutputDirectory}/${phasedGenotypesFilePrefix},path,
- FILE_PHASED_GENOTYPE,${imputeOutputDirectory}/phased_genotype_chr,path,
- FILE_INFO,info,string,
- FILE_INFO_SAMPLE,info_by_sample,string,
- FILE_HAPS,haps,string,
- FILE_HAPS_CONF,haps_confidence,string,
- FILE_SUMMARY,summary,string,
- FILE_WARNINGS,warnings,string,
- FILE_PART,part,string,
- FILE_SAMPLE_G,${imputeOutputDirectory}/sample_g.txt,path,sample_g file used by imputation on X chromosome for females
+ FILE_UNPHASED_PRE,${phasingOutputDirectory}/${unphasedGenotypesFilePrefix},path,
+ FILE_PHASED_GENOTYPE,${phasingOutputDirectory}/phased_genotype_chr,path,
+ FILE_SAMPLE_G,${phasingOutputDirectory}/sample_g.txt,path,sample_g file used by imputation on X chromosome for females
  MALE_FAKE_CONTROL_PRE,${pathToACEseqResults}/cnv_snp/${pid}.chr,path,path and prefix to chromosome-wise 1kb coverage file used for fake control workflow for male patients
  FEMALE_FAKE_CONTROL_PRE,${pathToACEseqResults}/cnv_snp/${pid}.chr,path,path and prefix to chromosome-wise 1kb coverage file used for fake control workflow for female patients
  PLOT_PRE,${aceseqOutputDirectory}/${pid}_plot,path,
@@ -104,16 +95,13 @@ Multiple parameters can be set with ACEseq though not all are necessary to chang
  CHROMOSOME_LENGTH_FILE,${path}/chrlengths.txt,path,
  REPLICATION_TIME_FILE,${path}/ReplicationTime_10cellines_mean_10KB.Rda,path,"replication timing file"
  GC_CONTENT_FILE,${path}/hg19_GRch37_100genomes_gc_content_10kb.txt,path,
- GENETIC_MAP_FILE,${path}/genetic_map_chr${CHR_NAME}_combined_b37.txt,path,"impute files"
- KNOWN_HAPLOTYPES_FILE,${path}/ALL.chr${CHR_NAME}.integrated_phase1_v3. 20101123.snps_indels_svs.genotypes.nomono.haplotypes.gz,path,"impute files"
- KNOWN_HAPLOTYPES_LEGEND_FILE,${path}ALL.chr${CHR_NAME}.integrated_phase1_v3. 20101123.snps_indels_svs.genotypes.nomono.legend.gz,path,"impute files"
- GENETIC_MAP_FILE_X,${path}/genetic_map_chrX_nonPAR_combined_b37.txt,path,"impute files"
- KNOWN_HAPLOTYPES_FILE_X,${path}/ALL_1000G_phase1integrated_v3_chrX_nonPAR_impute.hap.gz,path,"impute files"
- KNOWN_HAPLOTYPES_LEGEND_FILE_X,${path}/ALL_1000G_phase1integrated_v3_chrX_nonPAR_impute.legend.gz,path,"impute files"
  outputExecutionDirectory,${path}/exec_${executionTimeString},,"path to log files"
- imputeBaseDirectory,${path}/,path,"directory for impute files"
  mergedBamSuffix,merged.mdup.bam,string,"A list of all known suffixes for merged bam files. I.e. merged.dupmark.bam, merged.mdup.bam..." 
  mergedBamSuffixList,${mergedBamSuffix},string,"A list of all known suffixes for merged bam files. I.e. merged.dupmark.bam, merged.mdup.bam..."
  defaultMergedBamSuffix,${mergedBamSuffix},string,The default suffix for merged bam files when they are created by Roddy.
  libloc_PSCBS,,string,path to PSCBS library in R
  libloc_flexclust,,string,path to felxclust library in R
+ BEAGLE_REFERENCE_FILE,${baseDirectoryReference}/tools_data/Beagle/chr${CHR_NAME}.1kg.phase3.v5a.b37.bref3,path
+ BEAGLE_REFERENCE_FILE_X,${baseDirectoryReference}/tools_data/Beagle/chrX.1kg.phase3.v5a.b37.bref3,path
+ BEAGLE_GENETIC_MAP,${baseDirectoryReference}/tools_data/genetic_maps/plink.chr${CHR_NAME}.GRCh37.map,path
+ BEAGLE_GENETIC_MAP_X,${baseDirectoryReference}/tools_data/genetic_maps/plink.chrX.GRCh37.map,path

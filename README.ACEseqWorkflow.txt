@@ -15,6 +15,10 @@ isNoControlWorkflow	        false   Run analysis with matching control and estim
 
 == Changelist
 
+* Version update 6.0.0
+- Changed the phasing routine. The program "impute2" was replaced by "Beagle". Files and tools were renamed accordingly.
+- Generally renamed all tools and files from "imputeGenotype" to "phaseGenotype" (and so on) as the subroutine does not actually perform imputation but rather phasing.
+
 * Version update to 5.0.1
 - fixed density(NA) bug and index bug for frequencies (as.character) in clustering step
 

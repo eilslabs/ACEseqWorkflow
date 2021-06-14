@@ -13,7 +13,7 @@ import sys
 
 from python_modules import Tabfile
 
-parser=argparse.ArgumentParser(description = "Group imputed haplotypes")
+parser=argparse.ArgumentParser(description = "Group phased haplotypes")
 parser.add_argument('--infile', '-i', type = file, help = "vcf file with phased genotypes")
 parser.add_argument('--out', '-o', help = "Output file. Default: STDOUT")
 parser.add_argument('--minHT', '-m', type = int, default = 5, help = 'Minimum number of phased haplotypes for segment to be considered. Default=5')

@@ -12,7 +12,7 @@ zcat $dbSNP_FILE | perl $TOOL_ANNOTATE_CNV_VCF  \
 		--columnName genotype \
 		--aColNameLineStart "#CHROM" | \
 		grep -v "^#"  | \
-		$PERL_BINARY $TOOL_PARSE_VCF ${imputeOutputDirectory} $unphasedGenotypesFilePrefix $unphasedGenotypesFileSuffix
+		$PERL_BINARY $TOOL_PARSE_VCF ${phasingOutputDirectory} $unphasedGenotypesFilePrefix $unphasedGenotypesFileSuffix
 
 
 if [[ $? != 0 ]]

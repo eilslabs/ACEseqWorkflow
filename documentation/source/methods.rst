@@ -2,7 +2,7 @@ Methods - Theory
 ================
 
 
-| ACEseq can be used to estimate copy-numbers from WGS data using a tumor vs. control approach. Thus a pre-requesite is WGS data from healthy tissue and tumor tissue of the same patient with at least 30x coverage. Samtools [] mpileup is used to determine the coverage for tumor and control sample - position specific for each single nucleotide polymorphism (SNP) position recorded in dbSNP and per 1 kb window. To get chromosome specific allele frequencies, the genotypes of SNP positions are phased with Impute2 [] and A and B allele are assigned accordingly. Haploblocks are defined as regions with consecutively phased SNPs. Subsequently, B-allele frequencies (BAFs) are estimated for all SNP positions in tumor and control with sufficient coverage in the control: 
+| ACEseq can be used to estimate copy-numbers from WGS data using a tumor vs. control approach. Thus a pre-requesite is WGS data from healthy tissue and tumor tissue of the same patient with at least 30x coverage. Samtools [] mpileup is used to determine the coverage for tumor and control sample - position specific for each single nucleotide polymorphism (SNP) position recorded in dbSNP and per 1 kb window. To get chromosome specific allele frequencies, the genotypes of SNP positions are phased with Impute2 (up to v5) or Beagle (since v6) [] and A and B allele are assigned accordingly. Haploblocks are defined as regions with consecutively phased SNPs. Subsequently, B-allele frequencies (BAFs) are estimated for all SNP positions in tumor and control with sufficient coverage in the control:
 
   .. math::
      \label{eq:BAF}

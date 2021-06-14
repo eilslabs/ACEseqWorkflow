@@ -67,20 +67,20 @@ public class ACESeqWorkflow extends WorkflowUsingMergedBams {
             return true;
 
         TextFile mergedAndFilteredSNPFile = resultByType.getPositionFiles().mergeAndFilter();
-        ImputeGenotypeByChromosome imputedGenotypeByChromosome;
+        PhaseGenotypeByChromosome phasedGenotypeByChromosome;
         Tuple2<PhasedGenotypeFile, HaploblockGroupFile> phasedGenotypeX;
         TextFile haplotypedSNPFile;
 
         if (isNoControlWorkflow()) {
             TextFile genotypeSNPFile = ACESeqMethods.getGenotypes(mergedAndFilteredSNPFile);
             UnphasedGenotypeFileGroupByChromosome unphasedGenotypeFile = ACESeqMethods.createUnphased(genotypeSNPFile);
-            imputedGenotypeByChromosome = ACESeqMethods.imputeGenotypes(unphasedGenotypeFile);
-            phasedGenotypeX = ACESeqMethods.imputeGenotypeX(annotationResult.getGenderFile(), unphasedGenotypeFile);
-            haplotypedSNPFile = ACESeqMethods.addHaploTypes(genotypeSNPFile, imputedGenotypeByChromosome.getPhasedSnpFiles(), phasedGenotypeX.value0);
+            phasedGenotypeByChromosome = ACESeqMethods.phaseGenotypes(unphasedGenotypeFile);
+            phasedGenotypeX = ACESeqMethods.phaseGenotypeX(annotationResult.getGenderFile(), unphasedGenotypeFile);
+            haplotypedSNPFile = ACESeqMethods.addHaploTypes(genotypeSNPFile, phasedGenotypeByChromosome.getPhasedSnpFiles(), phasedGenotypeX.value0);
         } else {
-            imputedGenotypeByChromosome = ACESeqMethods.imputeGenotypes(bamControlMerged);
-            phasedGenotypeX = ACESeqMethods.imputeGenotypeX(annotationResult.getGenderFile(), bamControlMerged);
-            haplotypedSNPFile = ACESeqMethods.addHaploTypes(mergedAndFilteredSNPFile, imputedGenotypeByChromosome.getPhasedSnpFiles(), phasedGenotypeX.value0);
+            phasedGenotypeByChromosome = ACESeqMethods.phaseGenotypes(bamControlMerged);
+            phasedGenotypeX = ACESeqMethods.phaseGenotypeX(annotationResult.getGenderFile(), bamControlMerged);
+            haplotypedSNPFile = ACESeqMethods.addHaploTypes(mergedAndFilteredSNPFile, phasedGenotypeByChromosome.getPhasedSnpFiles(), phasedGenotypeX.value0);
             TextFile baffile = ACESeqMethods.createControlBafPlot(haplotypedSNPFile, annotationResult.getGenderFile());
         }
 

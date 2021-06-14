@@ -16,7 +16,7 @@ import subprocess
 
 from python_modules import Tabfile
 
-parser=argparse.ArgumentParser(description = "Add imputed haplotypes")
+parser=argparse.ArgumentParser(description = "Add phased haplotypes")
 parser.add_argument('--inputsuffix', '-i', type = str, help = "suffix of vcf file with phased genotypes")
 parser.add_argument('--inputpath', '-p', type = str, help = "path and prefix to vcf file with phased genotypes")
 parser.add_argument('--out', '-o', default=sys.stdout, help = "Output file. Default: STDOUT")

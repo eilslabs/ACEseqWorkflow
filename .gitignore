@@ -4,3 +4,4 @@ build/
 *.swp
 *.DS_Store
 #.+
+hg19_GRCh37_1000genomes

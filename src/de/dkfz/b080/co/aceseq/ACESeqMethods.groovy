@@ -27,10 +27,7 @@ final class ACESeqMethods {
     static LinkedHashMap<String, String> getGlobalJobSpecificParameters(Configuration config) {
         return new LinkedHashMap<String, String>(
                 (ACEseqConstants.CHR_NAME): config.configurationValues.getString(ACEseqConstants.CHR_NAME),
-                (ACEseqConstants.CHR_NR): config.configurationValues.getString(ACEseqConstants.CHR_NR),
-                (ACEseqConstants.GENETIC_MAP_FILE): config.configurationValues.getString(ACEseqConstants.GENETIC_MAP_FILE),
-                (ACEseqConstants.KNOWN_HAPLOTYPES_FILE): config.configurationValues.getString(ACEseqConstants.KNOWN_HAPLOTYPES_FILE),
-                (ACEseqConstants.KNOWN_HAPLOTYPES_LEGEND_FILE): config.configurationValues.getString(ACEseqConstants.KNOWN_HAPLOTYPES_LEGEND_FILE))
+                (ACEseqConstants.CHR_NR): config.configurationValues.getString(ACEseqConstants.CHR_NR))
     }
 
     static CnvSnpGeneratorResultByType generateCNVSNPs(BamFile tumorBam, BamFile controlBam) {
@@ -55,37 +52,37 @@ final class ACESeqMethods {
         return new CnvSnpGeneratorResultByType(indexedFileObjects, tumorBam.getExecutionContext())
     }
 
-    static ImputeGenotypeByChromosome imputeGenotypes(BamFile controlBam) {
+    static PhaseGenotypeByChromosome phaseGenotypes(BamFile controlBam) {
         IndexedFileObjects indexedFileObjects = ParallelizationHelper.runParallel(
                 COConstants.CVALUE_AUTOSOME_INDICES,
-                ACEseqConstants.TOOL_IMPUTE_GENOTYPES,
+                ACEseqConstants.TOOL_PHASE_GENOTYPES,
                 controlBam,
                 null,
                 ACEseqConstants.PARM_CHR_INDEX,
                 getGlobalJobSpecificParameters(controlBam.executionContext.configuration))
-        return new ImputeGenotypeByChromosome(indexedFileObjects, controlBam.getExecutionContext())
+        return new PhaseGenotypeByChromosome(indexedFileObjects, controlBam.getExecutionContext())
     }
 
-    static ImputeGenotypeByChromosome imputeGenotypes(UnphasedGenotypeFileGroupByChromosome unphasedGenotypeFiles) {
+    static PhaseGenotypeByChromosome phaseGenotypes(UnphasedGenotypeFileGroupByChromosome unphasedGenotypeFiles) {
         Map<String, UnphasedGenotypeFile> mapOfFiles = [:]
         mapOfFiles += unphasedGenotypeFiles.getFiles()
         mapOfFiles.remove("X")
         IndexedFileObjects indexedFileObjects = runParallel(
-                ACEseqConstants.TOOL_IMPUTE_GENOTYPES_NOMPILEUP,
+                ACEseqConstants.TOOL_PHASE_GENOTYPES_NOMPILEUP,
                 new UnphasedGenotypeFileGroupByChromosome(mapOfFiles.keySet() as List<String>, mapOfFiles, unphasedGenotypeFiles.getExecutionContext()),
                 null,
                 ACEseqConstants.PARM_CHR_INDEX,
                 getGlobalJobSpecificParameters(unphasedGenotypeFiles.executionContext.configuration))
-        return new ImputeGenotypeByChromosome(indexedFileObjects, unphasedGenotypeFiles.getExecutionContext())
+        return new PhaseGenotypeByChromosome(indexedFileObjects, unphasedGenotypeFiles.getExecutionContext())
     }
 
 
-    static Tuple2<PhasedGenotypeFile, HaploblockGroupFile> imputeGenotypeX(GenderFile sexFile, BamFile controlBam) {
-        return (Tuple2<PhasedGenotypeFile, HaploblockGroupFile>) GenericMethod.callGenericTool(ACEseqConstants.TOOL_IMPUTE_GENOTYPEX, controlBam, sexFile);
+    static Tuple2<PhasedGenotypeFile, HaploblockGroupFile> phaseGenotypeX(GenderFile sexFile, BamFile controlBam) {
+        return (Tuple2<PhasedGenotypeFile, HaploblockGroupFile>) GenericMethod.callGenericTool(ACEseqConstants.TOOL_PHASE_GENOTYPEX, controlBam, sexFile);
     }
 
-    static Tuple2<PhasedGenotypeFile, HaploblockGroupFile> imputeGenotypeX(GenderFile sexFile, UnphasedGenotypeFileGroupByChromosome unphasedGenotypeFiles) {
-        return (Tuple2<PhasedGenotypeFile, HaploblockGroupFile>) GenericMethod.callGenericTool(ACEseqConstants.TOOL_IMPUTE_GENOTYPEX_NOMPILEUP, unphasedGenotypeFiles.getFiles().get("X"), sexFile);
+    static Tuple2<PhasedGenotypeFile, HaploblockGroupFile> phaseGenotypeX(GenderFile sexFile, UnphasedGenotypeFileGroupByChromosome unphasedGenotypeFiles) {
+        return (Tuple2<PhasedGenotypeFile, HaploblockGroupFile>) GenericMethod.callGenericTool(ACEseqConstants.TOOL_PHASE_GENOTYPEX_NOMPILEUP, unphasedGenotypeFiles.getFiles().get("X"), sexFile);
     }
 
     static TextFile getGenotypes(TextFile mergedAndFilteredSNPFile) {
